@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quote_app/screens/home/homeScreen.dart';
+import 'package:quote_app/screens/imagescreen/imagescreen.dart';
 import 'package:quote_app/screens/quote/quotescreen.dart';
 import '../screens/splash/splashScreen.dart';
 
@@ -8,5 +9,6 @@ class Routes{
     '/': (context)=> const Splashscreen(),
     '/home': (context)=> const HomeScreen(),
     '/quote': (context)=> const QuoteScreen(),
+    '/image': (context)=> const ImageScreen(),
   };
 }

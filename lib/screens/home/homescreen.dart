@@ -40,8 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     selectedIndex = index;
                     categoryStore.clear();
                     for(int i = 0; i<quoteModelText!.quoteModelList.length; i++){
-                      if(category[selectedIndex]==quoteModelText!.quoteModelList[i].cate){
-                        categoryStore.add(quoteModelText!.quoteModelList[i]);
+                      if(category[index]==quoteModelText!.quoteModelList[i].cate){
+                        categoryStore.add(quoteList[i]);
                       }
                     }
                     Navigator.of(context).pushNamed('/quote');

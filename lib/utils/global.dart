@@ -13,7 +13,47 @@ List category = [
   'Friendship',
 ];
 
-bool addProcess = true;
+List fontFamilyList = [
+  'Dancing Script',
+  'Josefin Sans',
+  'Anton',
+  'Exo 2',
+  'Pacifico',
+  'Lobster',
+  'Imbue',
+  'Crimson Text',
+  'Prompt',
+  'Varela Round',
+  'Licorice',
+  'Play',
+  'IBM Plex Mono',
+  'Caveat',
+  'Chakra Petch',
+  'Shadows Into Light',
+  'Abril Fatface',
+  'Satisfy',
+  'Lilita One',
+  'Galada',
+  'Permanent Marker',
+  'Indie Flower',
+  'Edu NSW ACT Foundation',
+  'Orbitron',
+  'Cinzel',
+];
+
+List<String> imageList = [
+  'assets/img/love.jpg',
+  'assets/img/broken.jpg',
+  'assets/img/sad.jpg',
+  'assets/img/love2.jpg',
+  // Add more image URLs as needed
+];
+
+int imageSelect = 0;
+
+int fontIndex = 0;
+
+bool addProcess = false;
 
 List colorList = [
   {
