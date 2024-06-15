@@ -42,10 +42,10 @@ List fontFamilyList = [
 ];
 
 List<String> imageList = [
+  'assets/img/love2.jpg',
   'assets/img/love.jpg',
   'assets/img/broken.jpg',
   'assets/img/sad.jpg',
-  'assets/img/love2.jpg',
   // Add more image URLs as needed
 ];
 
@@ -60,7 +60,7 @@ List<Color> colorPick = [
   Colors.indigo,
 ];
 
-bool isGrid = false;
+bool isGrid = true;
 
 GlobalKey repaintKey = GlobalKey();
 
