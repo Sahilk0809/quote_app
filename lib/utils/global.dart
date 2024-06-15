@@ -49,6 +49,21 @@ List<String> imageList = [
   // Add more image URLs as needed
 ];
 
+List<Color> colorPick = [
+  Colors.white,
+  Colors.black,
+  Colors.orange,
+  Colors.red,
+  Colors.yellow,
+  Colors.blue,
+  Colors.teal,
+  Colors.indigo,
+];
+
+GlobalKey repaintKey = GlobalKey();
+
+int colorSelect = 0;
+
 int imageSelect = 0;
 
 int fontIndex = 0;

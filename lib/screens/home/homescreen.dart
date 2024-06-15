@@ -6,6 +6,7 @@ import 'package:quote_app/utils/list.dart';
 import 'package:quote_app/utils/quotelist.dart';
 
 QuoteModel? quoteModelText;
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -13,13 +14,10 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> {
-
-
   @override
   Widget build(BuildContext context) {
-    quoteModelText=QuoteModel.toList(l1: quoteList);
+    quoteModelText = QuoteModel.toList(l1: quoteList);
     var height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
@@ -39,8 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTap: () {
                     selectedIndex = index;
                     categoryStore.clear();
-                    for(int i = 0; i<quoteModelText!.quoteModelList.length; i++){
-                      if(category[index]==quoteModelText!.quoteModelList[i].cate){
+                    for (int i = 0;
+                        i < quoteModelText!.quoteModelList.length;
+                        i++) {
+                      if (category[index] ==
+                          quoteModelText!.quoteModelList[i].cate) {
                         categoryStore.add(quoteList[i]);
                       }
                     }
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Container appBar(double height) {
+Container appBar(double height, {icon}) {
   return Container(
     height: height * 0.06,
     decoration: BoxDecoration(

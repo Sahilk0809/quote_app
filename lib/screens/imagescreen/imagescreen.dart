@@ -34,15 +34,18 @@ class _ImageScreenState extends State<ImageScreen> {
                   itemCount: imageList.length,
                   itemBuilder: (context, index, realIndex) {
                     return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            imageSelect = index;
-                          });
-                        },
-                        child: Image.asset(imageList[index]));
+                      onTap: () {
+                        setState(() {
+                          imageSelect = index;
+                        });
+                      },
+                      child: Image.asset(imageList[index]),
+                    );
                   },
                   options: CarouselOptions(
-                      aspectRatio: 9 / 15, enlargeCenterPage: true),
+                    aspectRatio: 9 / 15,
+                    enlargeCenterPage: true,
+                  ),
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -79,10 +82,33 @@ class _ImageScreenState extends State<ImageScreen> {
                     ],
                   ),
                 ),
-                Row(
-                  children: [
-
-                  ],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...List.generate(
+                        colorPick.length,
+                        (index) => GestureDetector(
+                          onTap: () {
+                            colorSelect = index;
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(top: 20),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: colorPick[index],
+                              border: Border.all(
+                                width: 1,
+                              ),
+                            ),
+                            height: height * 0.05,
+                            width: 100,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
