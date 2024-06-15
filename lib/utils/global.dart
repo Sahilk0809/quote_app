@@ -60,6 +60,8 @@ List<Color> colorPick = [
   Colors.indigo,
 ];
 
+bool isGrid = false;
+
 GlobalKey repaintKey = GlobalKey();
 
 int colorSelect = 0;
