@@ -14,6 +14,7 @@ List category = [
 ];
 
 List fontFamilyList = [
+  'Crimson Text',
   'Dancing Script',
   'Josefin Sans',
   'Anton',
@@ -21,7 +22,6 @@ List fontFamilyList = [
   'Pacifico',
   'Lobster',
   'Imbue',
-  'Crimson Text',
   'Prompt',
   'Varela Round',
   'Licorice',
@@ -42,11 +42,26 @@ List fontFamilyList = [
 ];
 
 List<String> imageList = [
+  'assets/img/sad2.jpg',
+  'assets/img/animal3.webp',
+  'assets/img/love4.jpg',
+  'assets/img/love3.jpg',
+  'assets/img/nature.jpg',
+  'assets/img/krishna.jpg',
+  'assets/img/nature2.jpg',
+  'assets/img/krishna2.jpg',
+  'assets/img/nature3.jpeg',
+  'assets/img/nature4.jpg',
+  'assets/img/sad.jpg',
+  'assets/img/nature5.jpg',
+  'assets/img/nature6.webp',
+  'assets/img/nature7.jpg',
+  'assets/img/animal1.jpg',
+  'assets/img/animal2.jpg',
   'assets/img/love2.jpg',
   'assets/img/love.jpg',
+  'assets/img/love5.jpeg',
   'assets/img/broken.jpg',
-  'assets/img/sad.jpg',
-  // Add more image URLs as needed
 ];
 
 List<Color> colorPick = [
@@ -60,13 +75,18 @@ List<Color> colorPick = [
   Colors.indigo,
 ];
 
+int globalIndex = 0;
+
 List likeList = [];
 
 bool isLike = false;
 
 bool isGrid = true;
 
+GlobalKey repaintNewKey = GlobalKey();
+
 GlobalKey repaintKey = GlobalKey();
+List<GlobalKey> globalKey = [];
 
 int colorSelect = 0;
 

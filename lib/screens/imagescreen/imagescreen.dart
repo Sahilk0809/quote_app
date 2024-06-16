@@ -39,13 +39,19 @@ class _ImageScreenState extends State<ImageScreen> {
                           imageSelect = index;
                         });
                       },
-                      child: Image.asset(imageList[index]),
+                      child: Image.asset(
+                        imageList[index],
+                        fit: BoxFit.cover,
+                      ),
                     );
                   },
                   options: CarouselOptions(
                     aspectRatio: 9 / 15,
                     enlargeCenterPage: true,
                   ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
