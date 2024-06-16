@@ -200,7 +200,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                     )
                                   : iconButton(
                                       iconFind: const Icon(
-                                        Icons.add,
+                                        Icons.add_circle_outline,
                                         color: Colors.white,
                                         size: 45,
                                       ),
