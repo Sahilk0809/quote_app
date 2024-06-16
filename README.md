@@ -6,3 +6,5 @@
 <img src="https://github.com/Sahilk0809/quote_app/assets/149374235/36710835-0cdd-403e-874b-b3ab8a54bf90" height=65% width=22%>
 <img src="https://github.com/Sahilk0809/quote_app/assets/149374235/26d52109-3458-45fc-b018-c144eb481ed6" height=65% width=22%>
 </div>
+
+https://github.com/Sahilk0809/quote_app/assets/149374235/6f9809f5-9eee-41cd-8efe-b87bbce3100f
