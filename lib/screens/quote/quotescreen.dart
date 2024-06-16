@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:clipboard/clipboard.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -54,7 +55,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
                             ),
                             RepaintBoundary(
                               key: repaintKey,
-                              child: Text(
+                              child: SelectableText(
                                 categoryStore[index]['quote'],
                                 style: GoogleFonts.getFont(
                                   color: colorPick[colorSelect],
@@ -72,9 +73,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                       Navigator.of(context)
                                           .pushNamed('/image')
                                           .then(
-                                            (value) => setState(
-                                              () {},
-                                            ),
+                                            (value) => setState(() {}),
                                           );
                                     },
                                     icon: const Icon(
@@ -148,7 +147,10 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                           size: 40,
                                         ),
                                         alignFind: const Alignment(0.5, 0.9),
-                                        onPass: () {},
+                                        onPass: () {
+                                          FlutterClipboard.copy(
+                                              categoryStore[index]['quote']);
+                                        },
                                       ),
                                     ],
                                   )

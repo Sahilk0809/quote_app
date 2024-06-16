@@ -176,7 +176,7 @@ Container appBar(double height, {icon}) {
             ),
           ),
           Icon(
-            Icons.favorite_border,
+            Icons.notifications,
             size: 30,
             color: Colors.white,
           ),

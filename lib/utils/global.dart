@@ -60,6 +60,10 @@ List<Color> colorPick = [
   Colors.indigo,
 ];
 
+List likeList = [];
+
+bool isLike = false;
+
 bool isGrid = true;
 
 GlobalKey repaintKey = GlobalKey();
