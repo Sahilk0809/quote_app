@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:clipboard/clipboard.dart';
-import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -36,7 +35,6 @@ class _QuoteScreenState extends State<QuoteScreen> {
   Widget build(BuildContext context) {
     quoteModelText = QuoteModel.toList(l1: quoteList);
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -121,8 +119,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                             color: Colors.white,
                                             size: 40,
                                           ),
-                                          alignFind:
-                                              const Alignment(-0.5, 0.9),
+                                          alignFind: const Alignment(-0.5, 0.9),
                                           onPass: () async {
                                             repaintNewKey = globalKey[index];
                                             RenderRepaintBoundary boundary =
@@ -138,8 +135,8 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                               format: ui.ImageByteFormat.png,
                                             );
 
-                                            Uint8List img = byteData!.buffer
-                                                .asUint8List();
+                                            Uint8List img =
+                                                byteData!.buffer.asUint8List();
 
                                             ImageGallerySaver.saveImage(img);
 
@@ -158,8 +155,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                                 margin: EdgeInsets.all(10),
                                                 behavior:
                                                     SnackBarBehavior.floating,
-                                                duration:
-                                                    Duration(seconds: 3),
+                                                duration: Duration(seconds: 3),
                                               ),
                                             );
                                           },
@@ -170,8 +166,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                             color: Colors.white,
                                             size: 40,
                                           ),
-                                          alignFind:
-                                              const Alignment(0.5, 0.9),
+                                          alignFind: const Alignment(0.5, 0.9),
                                           onPass: () async {
                                             FlutterClipboard.copy(
                                               categoryStore[index]['quote'],
@@ -180,7 +175,8 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                                 .showSnackBar(
                                               const SnackBar(
                                                 content: Text(
-                                                    'Copied to ClipBoard'),
+                                                  'Copied to ClipBoard',
+                                                ),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.all(
@@ -190,8 +186,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                                 margin: EdgeInsets.all(10),
                                                 behavior:
                                                     SnackBarBehavior.floating,
-                                                duration:
-                                                    Duration(seconds: 3),
+                                                duration: Duration(seconds: 3),
                                               ),
                                             );
                                           },
@@ -229,8 +224,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
 
                                         ByteData? byteData =
                                             await image.toByteData(
-                                                format:
-                                                    ui.ImageByteFormat.png);
+                                                format: ui.ImageByteFormat.png);
 
                                         Uint8List img =
                                             byteData!.buffer.asUint8List();
@@ -238,7 +232,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                             getApplicationDocumentsDirectory();
                                         File file = File('$path/img.png');
                                         file.writeAsBytes(img);
-                                        ShareExtend.share(file.path, "IMG");
+                                        ShareExtend.share(file.path,"IMG");
                                       },
                                       icon: const Icon(
                                         Icons.share,

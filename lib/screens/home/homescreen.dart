@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // ),
             Padding(
               padding: const EdgeInsets.only(top: 60),
-              child: isGrid?gridView(height):listView(height),
+              child: isGrid ? gridView(height) : listView(height),
             ),
           ],
         ),
@@ -57,49 +57,47 @@ class _HomeScreenState extends State<HomeScreen> {
 
   GridView gridView(double height) {
     return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemCount: category.length,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () {
-                  selectedIndex = index;
-                  categoryStore.clear();
-                  for (int i = 0;
-                      i < quoteModelText!.quoteModelList.length;
-                      i++) {
-                    if (category[index] ==
-                        quoteModelText!.quoteModelList[i].cate) {
-                      categoryStore.add(quoteList[i]);
-                    }
-                  }
-                  Navigator.of(context).pushNamed('/quote');
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: height * 0.1,
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: LinearGradient(
-                      colors: [
-                        colorList[index]['color1'],
-                        colorList[index]['color2'],
-                      ],
-                    ),
-                  ),
-                  child: Text(
-                    '${category[index]}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),
-                ),
-              ),
-            );
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemCount: category.length,
+      itemBuilder: (context, index) => GestureDetector(
+        onTap: () {
+          selectedIndex = index;
+          categoryStore.clear();
+          for (int i = 0; i < quoteModelText!.quoteModelList.length; i++) {
+            if (category[index] == quoteModelText!.quoteModelList[i].cate) {
+              categoryStore.add(quoteList[i]);
+            }
+          }
+          Navigator.of(context).pushNamed('/quote');
+        },
+        child: Container(
+          alignment: Alignment.center,
+          height: height * 0.1,
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: LinearGradient(
+              colors: [
+                colorList[index]['color1'],
+                colorList[index]['color2'],
+              ],
+            ),
+          ),
+          child: Text(
+            '${category[index]}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
   }
 
   ListView listView(double height) {
