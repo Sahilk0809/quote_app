@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:clipboard/clipboard.dart';
+import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
+import 'package:quote_app/utils/colors.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -35,6 +37,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
   Widget build(BuildContext context) {
     quoteModelText = QuoteModel.toList(l1: quoteList);
     var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -61,15 +64,12 @@ class _QuoteScreenState extends State<QuoteScreen> {
                               SizedBox(
                                 height: height * 0.3,
                               ),
-                              RepaintBoundary(
-                                key: globalKey[index],
-                                child: SelectableText(
-                                  categoryStore[index]['quote'],
-                                  style: GoogleFonts.getFont(
-                                    color: colorPick[colorSelect],
-                                    fontSize: 28,
-                                    fontFamilyList[fontIndex],
-                                  ),
+                              SelectableText(
+                                categoryStore[index]['quote'],
+                                style: GoogleFonts.getFont(
+                                  color: colorPick[colorSelect],
+                                  fontSize: 28,
+                                  fontFamilyList[fontIndex],
                                 ),
                               ),
                               SizedBox(
@@ -121,43 +121,165 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                           ),
                                           alignFind: const Alignment(-0.5, 0.9),
                                           onPass: () async {
-                                            repaintNewKey = globalKey[index];
-                                            RenderRepaintBoundary boundary =
-                                                repaintNewKey.currentContext!
-                                                        .findRenderObject()
-                                                    as RenderRepaintBoundary;
+                                            setState(() {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    Dialog.fullscreen(
+                                                  backgroundColor: Colors.black,
+                                                  child: Column(
+                                                    children: [
+                                                      Expanded(
+                                                        child: RepaintBoundary(
+                                                          key: repaintKey,
+                                                          child: Container(
+                                                            height: double.infinity,
+                                                            width: double.infinity,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              image: DecorationImage(
+                                                                fit: BoxFit.cover,
+                                                                image: AssetImage(imageList[imageSelect],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            child: Column(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets.all(8.0),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      textAlign: TextAlign.center,
+                                                                      categoryStore[index]['quote'],
+                                                                      style: GoogleFonts.getFont(fontFamilyList[fontIndex],
+                                                                        fontSize: 30,
+                                                                        color: colorPick[colorSelect],
+                                                                        fontWeight: FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: height * 0.01,
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets.only(left: 50.0),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                                    children: [
+                                                                      Text(
+                                                                        '- ${categoryStore[index]['author']}',
+                                                                        style: GoogleFonts
+                                                                            .getFont(
+                                                                          fontFamilyList[fontIndex],
+                                                                          textStyle: const TextStyle(
+                                                                              fontSize: 18,
+                                                                              color: Colors.white,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                       SizedBox(
+                                                                        width: width * 0.01,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets.all(8.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () async {
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              child: Container(
+                                                                height: 40,
+                                                                width: 150,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(10),
+                                                                  color: blueSelect,
+                                                                ),
+                                                                alignment: Alignment.center,
+                                                                child: const Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons.cancel,
+                                                                      color: Colors.white,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 5,
+                                                                    ),
+                                                                    Text(
+                                                                      'Cancel',
+                                                                      style: TextStyle(
+                                                                          color: Colors.white,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: () async {
+                                                                RenderRepaintBoundary
+                                                                    boundary =
+                                                                    repaintKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
 
-                                            ui.Image image =
-                                                await boundary.toImage();
+                                                                ui.Image image = await boundary.toImage();
+                                                                ByteData?byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
-                                            ByteData? byteData =
-                                                await image.toByteData(
-                                              format: ui.ImageByteFormat.png,
-                                            );
+                                                                Uint8List img = byteData!.buffer.asUint8List();
 
-                                            Uint8List img =
-                                                byteData!.buffer.asUint8List();
-
-                                            ImageGallerySaver.saveImage(img);
-
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                  'Saved successfully in the gallery!',
-                                                ),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(10),
+                                                                ImageGallerySaver.saveImage(img);
+                                                              },
+                                                              child: Container(
+                                                                height: 40,
+                                                                width: 150,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(10),
+                                                                    color: blueSelect
+                                                                ),
+                                                                alignment: Alignment.center,
+                                                                child: const Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons.save_alt,
+                                                                      color: Colors.white,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 0.005,
+                                                                    ),
+                                                                    Text(
+                                                                      'Save',
+                                                                      style: TextStyle(
+                                                                          color: Colors.white,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
-                                                margin: EdgeInsets.all(10),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                duration: Duration(seconds: 3),
-                                              ),
-                                            );
+                                              );
+                                            });
                                           },
                                         ),
                                         iconButton(
@@ -213,26 +335,206 @@ class _QuoteScreenState extends State<QuoteScreen> {
                               addProcess
                                   ? IconButton(
                                       onPressed: () async {
-                                        repaintNewKey = globalKey[index];
-                                        RenderRepaintBoundary boundary =
-                                            repaintNewKey.currentContext!
-                                                    .findRenderObject()
-                                                as RenderRepaintBoundary;
+                                        setState(() {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                Dialog.fullscreen(
+                                              backgroundColor: Colors.black,
+                                              child: Column(
+                                                children: [
+                                                  Expanded(
+                                                    child: RepaintBoundary(
+                                                      key: repaintKey,
+                                                      child: Container(
+                                                        height: double.infinity,
+                                                        width: double.infinity,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          image:
+                                                              DecorationImage(
+                                                            fit: BoxFit.cover,
+                                                            image: AssetImage(
+                                                              imageList[
+                                                                  imageSelect],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  categoryStore[
+                                                                          index]
+                                                                      ['quote'],
+                                                                  style: GoogleFonts
+                                                                      .getFont(
+                                                                    fontFamilyList[
+                                                                        fontIndex],
+                                                                    fontSize:
+                                                                        30,
+                                                                    color: colorPick[
+                                                                        colorSelect],
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height:
+                                                                  height * 0.01,
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left:
+                                                                          50.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .end,
+                                                                children: [
+                                                                  Text(
+                                                                    '- ${categoryStore[index]['author']}',
+                                                                    style: GoogleFonts
+                                                                        .getFont(
+                                                                      fontFamilyList[
+                                                                          fontIndex],
+                                                                      textStyle:
+                                                                          const TextStyle(
+                                                                        fontSize:
+                                                                            18,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width:
+                                                                        width *
+                                                                            0.01,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () async {
+                                                            Navigator.of(context).pop(); //returns true/false
+                                                          },
+                                                          child: Container(
+                                                            height: 40,
+                                                            width: 150,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(10),
+                                                              color: blueSelect,
+                                                            ),
+                                                            alignment: Alignment.center,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment.center,
+                                                              children: [
+                                                                const Icon(
+                                                                  Icons.cancel,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: width * 0.005,
+                                                                ),
+                                                                const Text(
+                                                                  'Cancel',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () async {
+                                                            RenderRepaintBoundary
+                                                                boundary =
+                                                                repaintKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
 
-                                        ui.Image image =
-                                            await boundary.toImage();
+                                                            ui.Image image = await boundary.toImage();
+                                                            ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
-                                        ByteData? byteData =
-                                            await image.toByteData(
-                                                format: ui.ImageByteFormat.png);
+                                                            Uint8List img = byteData!.buffer.asUint8List();
 
-                                        Uint8List img =
-                                            byteData!.buffer.asUint8List();
-                                        final path =
-                                            getApplicationDocumentsDirectory();
-                                        File file = File('$path/img.png');
-                                        file.writeAsBytes(img);
-                                        ShareExtend.share(file.path,"IMG");
+                                                            final imgPath = await getApplicationDocumentsDirectory();
+                                                            final file = File("${imgPath.path}/img.png");
+
+                                                            file.writeAsBytes(img);
+                                                            ShareExtend.share(file.path, 'image');
+                                                          },
+                                                          child: Container(
+                                                            height: 40,
+                                                            width: 150,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              color: blueSelect,
+                                                            ),
+                                                            alignment: Alignment.center,
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                const Icon(
+                                                                  Icons.share,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: width * 0.005,
+                                                                ),
+                                                                const Text(
+                                                                  'Share',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        });
                                       },
                                       icon: const Icon(
                                         Icons.share,

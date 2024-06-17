@@ -83,8 +83,6 @@ bool isLike = false;
 
 bool isGrid = true;
 
-GlobalKey repaintNewKey = GlobalKey();
-
 GlobalKey repaintKey = GlobalKey();
 List<GlobalKey> globalKey = [];
 
